@@ -4,17 +4,19 @@ set -e
 set -o pipefail
 set -x
 
-SOCAT_VERSION=1.7.3.2
-NCURSES_VERSION=6.0
-READLINE_VERSION=7.0
-OPENSSL_VERSION=1.1.0f
+SOCAT_VERSION=1.8.1.1
+NCURSES_VERSION=6.6-20260207
+READLINE_VERSION=8.3
+OPENSSL_VERSION=3.6.1
+mkdir -p /build
+mkdir -p /output
 
 function build_ncurses() {
     cd /build
 
     # Download
-    curl -LO http://invisible-mirror.net/archives/ncurses/ncurses-${NCURSES_VERSION}.tar.gz
-    tar zxvf ncurses-${NCURSES_VERSION}.tar.gz
+    curl -LO  http://invisible-mirror.net/archives/ncurses/current/ncurses-${NCURSES_VERSION}.tgz
+    tar zxvf ncurses-${NCURSES_VERSION}.tgz
     cd ncurses-${NCURSES_VERSION}
 
     # Build
@@ -24,6 +26,7 @@ function build_ncurses() {
 }
 
 function build_readline() {
+
     cd /build
 
     # Download
@@ -35,18 +38,22 @@ function build_readline() {
     CC='/usr/bin/gcc -static' CFLAGS='-fPIC' ./configure \
         --disable-shared \
         --enable-static
-    make -j4
+    make -j14
 
     # Note that socat looks for readline in <readline/readline.h>, so we need
     # that directory to exist.
-    ln -s /build/readline-${READLINE_VERSION} /build/readline
+     if [ -e /build/readline ];then
+      rm $PWD/readline
+     fi
+     ln -s /build/readline-${READLINE_VERSION} /build/readline
 }
 
 function build_openssl() {
     cd /build
 
     # Download
-    curl -LO https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz
+    curl -LO https://github.com/openssl/openssl/releases/download/openssl-${OPENSSL_VERSION}/openssl-${OPENSSL_VERSION}.tar.gz
+
     tar zxvf openssl-${OPENSSL_VERSION}.tar.gz
     cd openssl-${OPENSSL_VERSION}
 
@@ -54,7 +61,7 @@ function build_openssl() {
     CC='/usr/bin/gcc -static' ./Configure no-shared no-async linux-x86_64
 
     # Build
-    make -j4
+    make -j14
     echo "** Finished building OpenSSL"
 }
 
@@ -74,7 +81,7 @@ function build_socat() {
         CPPFLAGS="-I/build -I/build/openssl-${OPENSSL_VERSION}/include -DNETDB_INTERNAL=-1" \
         LDFLAGS="-L/build/readline-${READLINE_VERSION} -L/build/ncurses-${NCURSES_VERSION}/lib -L/build/openssl-${OPENSSL_VERSION}" \
         ./configure
-    make -j4
+    make -j14
     strip socat
 }
 
