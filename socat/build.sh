@@ -58,7 +58,7 @@ function build_openssl() {
     cd openssl-${OPENSSL_VERSION}
 
     # Configure
-    CC='/usr/bin/gcc -static' ./Configure no-shared no-async linux-x86_64
+    CC='/usr/bin/gcc -static' CFLAGS='-fPIC' ./Configure no-shared no-async linux-x86_64
 
     # Build
     make -j14
