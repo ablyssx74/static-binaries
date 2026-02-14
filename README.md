@@ -22,5 +22,5 @@ docker run -v `pwd`/../binaries:/output static-binaries-socat
 ```
 pkgman install blink
 unzip socat and mv to  /boot/home/config/non-packaged/bin/
-Open Terminal and type  blink socat
+Open Terminal and type blink socat
 ```
