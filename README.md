@@ -14,8 +14,3 @@ docker build -t static-binaries-socat .
 docker run -v `pwd`/../binaries:/output static-binaries-socat
 ```
 
-## Notes:
-
-- 
-- Originally forked from [https://github.com/andrew-d/static-binaries](https://github.com/andrew-d/static-binaries)
-  
