@@ -18,3 +18,9 @@ docker run -v `pwd`/../binaries:/output static-binaries-socat
 # zip socat.zip ./socat
 # cp socat.zip Haiku OS
 ```
+## Running under Haiku OS
+```
+pkgman install blink
+unzip socat and mv to  /boot/home/config/non-packaged/bin/
+Open Terminal and type  blink socat
+```
