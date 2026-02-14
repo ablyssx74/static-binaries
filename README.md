@@ -3,7 +3,7 @@
 This repo contains a static build of socat-1.8.1.1
 along with the Dockerfile and build script that can be used to build.  
 
-The purpose here was to have an up-to-date static build of socat that would run under [blink](https://github.com/jart/blink) and [Haiku OS.](https://github.com/haiku)
+The goal achieves an up-to-date static build of socat with SSL builtin that runs under [blink](https://github.com/jart/blink) and [Haiku OS.](https://github.com/haiku)
 
 
 ## Building under Linux
