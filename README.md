@@ -24,3 +24,7 @@ pkgman install blink
 unzip socat and mv to  /boot/home/config/non-packaged/bin/
 Open Terminal and type blink socat
 ```
+
+## Prebuilt binary
+[socat](https://github.com/ablyssx74/static-binaries/blob/master/binaries/linux/x86_64/socat-1.8.1.1.zip)
+`
