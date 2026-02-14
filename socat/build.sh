@@ -8,8 +8,7 @@ SOCAT_VERSION=1.8.1.1
 NCURSES_VERSION=6.6-20260207
 READLINE_VERSION=8.3
 OPENSSL_VERSION=3.6.1
-mkdir -p /build
-mkdir -p /output
+
 
 function build_ncurses() {
     cd /build
