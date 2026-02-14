@@ -38,12 +38,12 @@ function build_readline() {
     CC='/usr/bin/gcc -static' CFLAGS='-fPIC' ./configure \
         --disable-shared \
         --enable-static
-    make -j14
+    make -j4
 
     # Note that socat looks for readline in <readline/readline.h>, so we need
     # that directory to exist.
      if [ -e /build/readline ];then
-      rm $PWD/readline
+      rm /build/readline
      fi
      ln -s /build/readline-${READLINE_VERSION} /build/readline
 }
@@ -61,7 +61,7 @@ function build_openssl() {
     CC='/usr/bin/gcc -static' CFLAGS='-fPIC' ./Configure no-shared no-async linux-x86_64
 
     # Build
-    make -j14
+    make -j4
     echo "** Finished building OpenSSL"
 }
 
@@ -81,7 +81,7 @@ function build_socat() {
         CPPFLAGS="-I/build -I/build/openssl-${OPENSSL_VERSION}/include -DNETDB_INTERNAL=-1" \
         LDFLAGS="-L/build/readline-${READLINE_VERSION} -L/build/ncurses-${NCURSES_VERSION}/lib -L/build/openssl-${OPENSSL_VERSION}" \
         ./configure
-    make -j14
+    make -j4
     strip socat
 }
 
